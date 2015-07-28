@@ -22,6 +22,15 @@ public class AlarmActivity extends Activity {
         window.addFlags(WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED);
         window.addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
         Log.d("Test", "Alarm went off");
+
+        try {
+            Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+
+            r.play();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
