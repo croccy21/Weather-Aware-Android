@@ -1,7 +1,7 @@
 import parse
 import re
-data = "www.server.co.uk/?no=1&condid=1&start=09&end=10&no=2&condid=3&start=10&end=11"
-pattern = "no=\d+&condid=\d+&start=\d\d&end=\d\d"
+data = "www.server.co.uk/?no=1&condid=1&start=1438074000&end=1438077600&no=2&condid=3&start=1438077600&end=1438081200"
+pattern = "no=\d+&condid=\d+&start=\d+&end=\d+"
 conditions = re.findall(pattern, data, re.IGNORECASE)
 conditionsList = []
 for i in conditions:
