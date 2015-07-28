@@ -1,6 +1,6 @@
 import parse
 import re
-data = "www.server.co.uk/?no=1&condid=1&start=09:00&end=10:00&offset=5&no=2&condid=2&start=10:00&end=11:00&offset=-10"
+data = "www.server.co.uk/?no=1&condid=1&start=09:00&end=10:00&offset=5&no=2&condid=3&start=10:00&end=11:00&offset=-10"
 pattern = "no=\d+&condid=\d+&start=\d\d:\d\d&end=\d\d:\d\d&offset=-*\d+"
 conditions = re.findall(pattern, data, re.IGNORECASE)
 conditionsList = []
@@ -22,4 +22,4 @@ for condition in conditionsList:
     print(condition['end'])
     print(condition['offset'])
     print()
-weather = parse.main()
+weather = parse.main("2015","07","28","12","06","00")
