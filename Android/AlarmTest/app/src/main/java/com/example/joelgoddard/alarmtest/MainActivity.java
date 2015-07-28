@@ -22,9 +22,9 @@ public class MainActivity extends Activity {
 
         Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
         PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-
-        alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(System.currentTimeMillis()+30000, pi), pi);
-        Log.d("Test", "Set Clock");
+        Long time = System.currentTimeMillis()+30000;
+        alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(time, pi), pi);
+        Log.d("Test", "Set Alarm for "+ String.valueOf(time));
     }
 
     @Override
