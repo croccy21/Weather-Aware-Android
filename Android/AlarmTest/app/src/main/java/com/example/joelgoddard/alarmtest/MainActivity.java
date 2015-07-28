@@ -10,21 +10,19 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 
 public class MainActivity extends Activity {
+
+
+    AlarmManager alarmManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
-        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        Long time = System.currentTimeMillis()+30000;
-        alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(time, pi), pi);
-        Log.d("Test", "Set Alarm for "+ String.valueOf(time));
     }
 
     @Override
@@ -47,5 +45,22 @@ public class MainActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void soundTheAlarm(View view) {
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        Long time = System.currentTimeMillis()+30000;
+        alarmManager.setAlarmClock(new AlarmManager.AlarmClockInfo(time, pi), pi);
+        Log.d("Test", "Set Alarm for "+ String.valueOf(time));
+    }
+
+    public void stopTheAlarm(View view) {
+        Intent intent = new Intent(getApplicationContext(), AlarmActivity.class);
+        PendingIntent pi = PendingIntent.getActivity(getApplicationContext(), 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        alarmManager.cancel(pi);
+        Log.d("Test", "Alarm Canceled");
     }
 }
