@@ -17,10 +17,8 @@ def main():
     ##    print("   " + i)
     returnList = []
     for i in list(obj['hourly']['data']):
-        print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(i['time'])))
         tempDictionary = {}
         for x in list(i):
             tempDictionary[x] = str(i[str(x)])
-            print("   " + x + ": " + str(i[str(x)]))
         returnList.append(tempDictionary)
-    print(returnList)
+    return returnList

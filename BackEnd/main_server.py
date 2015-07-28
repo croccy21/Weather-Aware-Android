@@ -22,8 +22,4 @@ for condition in conditionsList:
     print(condition['end'])
     print(condition['offset'])
     print()
-parse.main()
-for i in list(obj['hourly']['data']):
-    print(time.strftime('%Y-%m-%d %H:%M:%S', time.localtime(i['time'])))
-    for x in list(i):
-        print("   " + x + ": " + str(i[str(x)]))
+weather = parse.main()
