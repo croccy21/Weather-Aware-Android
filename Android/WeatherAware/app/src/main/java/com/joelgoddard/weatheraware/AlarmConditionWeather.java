@@ -62,7 +62,14 @@ public class AlarmConditionWeather extends AlarmCondition {
         this.weatherID = weatherID;
     }
 
-
+    @Override
+    public String getURL() {
+        Calendar start = (Calendar)parent.getDay().clone();
+        start.add(Calendar.HOUR, startTime);
+        Calendar end = (Calendar)parent.getDay().clone();
+        end.add(Calendar.HOUR, endTime);
+        return MessageFormat.format("no={}&condid={}&start={}&end={}", conditionID, weatherID, start.getTimeInMillis()/1000, end.getTimeInMillis()/1000);
+    }
 
 
 
