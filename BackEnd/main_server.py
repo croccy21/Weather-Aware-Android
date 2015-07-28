@@ -1,7 +1,7 @@
 import parse
 import re
-data = "www.server.co.uk/?no=1&condid=1&start=09:00&end=10:00&no=2&condid=3&start=10:00&end=11:00"
-pattern = "no=\d+&condid=\d+&start=\d\d:\d\d&end=\d\d:\d\d"
+data = "www.server.co.uk/?no=1&condid=1&start=09&end=10&no=2&condid=3&start=10&end=11"
+pattern = "no=\d+&condid=\d+&start=\d\d&end=\d\d"
 conditions = re.findall(pattern, data, re.IGNORECASE)
 conditionsList = []
 for i in conditions:
@@ -13,14 +13,12 @@ for i in conditions:
     tempDictionary['condid'] = params[1]
     tempDictionary['start'] = params[2]
     tempDictionary['end'] = params[3]
-    tempDictionary['offset'] = params[4]
     conditionsList.append(tempDictionary)
 for condition in conditionsList:
     print(condition['number'])
     print(condition['condid'])
     print(condition['start'])
     print(condition['end'])
-    print(condition['offset'])
     print()
 weather = parse.main("2015","07","28","12","06","00")
 statuses = {}
