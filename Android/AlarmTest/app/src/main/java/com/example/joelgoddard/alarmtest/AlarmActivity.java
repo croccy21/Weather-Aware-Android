@@ -1,6 +1,8 @@
 package com.example.joelgoddard.alarmtest;
 
 import android.app.Activity;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
@@ -8,11 +10,14 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 
 public class AlarmActivity extends Activity {
+
+    MediaPlayer mp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,9 +30,14 @@ public class AlarmActivity extends Activity {
 
         try {
             Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-            Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+            //Ringtone r = RingtoneManager.getRingtone(getApplicationContext(), notification);
 
-            r.play();
+            mp = new MediaPlayer();
+            mp.setDataSource(getApplicationContext(), notification);
+            mp.setAudioStreamType(AudioManager.STREAM_ALARM);
+            mp.prepare();
+            mp.start();
+            //r.play();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -53,5 +63,11 @@ public class AlarmActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void stopAlarmClick(View view) {
+        mp.stop();
+        mp.release();
+        finish();
     }
 }
