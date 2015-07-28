@@ -101,5 +101,5 @@ for weatherDay in weather:
         status = False  
     hourStatus.append(status)
     #statuses[weatherDay['time'].split(' ')[1]] = hourStatus
-    statuses[weatherDay['time']] = hourStatus
+    statuses[weatherDay['unixtime']] = hourStatus
 print(statuses)
