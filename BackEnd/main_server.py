@@ -1,7 +1,7 @@
 import parse
 import re
-data = "www.server.co.uk/?no=1&condid=1&start=09:00&end=10:00&offset=5&no=2&condid=3&start=10:00&end=11:00&offset=-10"
-pattern = "no=\d+&condid=\d+&start=\d\d:\d\d&end=\d\d:\d\d&offset=-*\d+"
+data = "www.server.co.uk/?no=1&condid=1&start=09:00&end=10:00&no=2&condid=3&start=10:00&end=11:00"
+pattern = "no=\d+&condid=\d+&start=\d\d:\d\d&end=\d\d:\d\d"
 conditions = re.findall(pattern, data, re.IGNORECASE)
 conditionsList = []
 for i in conditions:
@@ -102,5 +102,6 @@ for weatherDay in weather:
     else:
         status = False  
     hourStatus.append(status)
-    statuses[weatherDay['time'].split(' ')[1]] = hourStatus
+    #statuses[weatherDay['time'].split(' ')[1]] = hourStatus
+    statuses[weatherDay['time']] = hourStatus
 print(statuses)
