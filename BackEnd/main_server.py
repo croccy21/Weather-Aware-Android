@@ -23,3 +23,84 @@ for condition in conditionsList:
     print(condition['offset'])
     print()
 weather = parse.main("2015","07","28","12","06","00")
+statuses = {}
+for weatherDay in weather:
+    #for weatherType in weatherDay:
+        #print(weatherType + ': ' + str(weatherDay[weatherType]))
+##    print(weatherDay['time'])
+##    print(weatherDay['unixtime'])
+##    print(weatherDay['precipProbability'] + '%')
+##    print(weatherDay['visibility'] + 'km')
+##    print(weatherDay['windSpeed'] + ' m/s')
+##    print(weatherDay['precipIntensity'] + ' inches')
+##    if float(weatherDay['precipIntensity']) != 0:
+##        print(weatherDay['precipType'])
+##    print()
+    hourStatus = []
+    status = False
+    if float(weatherDay['precipIntensity']) != 0 and (weatherDay['precipType'] == 'rain' or weatherDay['precipType'] == 'hail'):
+        if float(weatherDay['precipIntensity']) >= 10.16:
+            if float(weatherDay['precipProbability']) >= 40:
+                status = True
+            else:
+                status = False
+        elif float(weatherDay['precipIntensity']) >= 2.54:
+            if float(weatherDay['precipProbability']) >= 50:
+                status = True
+            else:
+                status = False
+        elif float(weatherDay['precipIntensity']) >= 0.4318:
+            if float(weatherDay['precipProbability']) >= 60:
+                status = True
+            else:
+                status = False
+        elif float(weatherDay['precipIntensity']) >= 0.0508:
+            if float(weatherDay['precipProbability']) >= 70:
+                status = True
+            else:
+                status = False
+    else:
+        status = False
+    hourStatus.append(status)
+    #####
+    status = False
+    if float(weatherDay['precipIntensity']) != 0 and (weatherDay['precipType'] == 'snow' or weatherDay['precipType'] == 'sleet'):
+        if float(weatherDay['precipIntensity']) >= 10.16:
+            if float(weatherDay['precipProbability']) >= 30:
+                status = True
+            else:
+                status = False
+        elif float(weatherDay['precipIntensity']) >= 2.54:
+            if float(weatherDay['precipProbability']) >= 40:
+                status = True
+            else:
+                status = False
+        elif float(weatherDay['precipIntensity']) >= 0.4318:
+            if float(weatherDay['precipProbability']) >= 50:
+                status = True
+            else:
+                status = False
+        elif float(weatherDay['precipIntensity']) >= 0.0508:
+            if float(weatherDay['precipProbability']) >= 60:
+                status = True
+            else:
+                status = False
+    else:
+        status = False
+    hourStatus.append(status)
+    #####
+    status = False
+    if float(weatherDay['visibility']) <= 2:
+        status = True
+    else:
+        status = False
+    hourStatus.append(status)
+    #####
+    status = False
+    if float(weatherDay['windSpeed']) >= 13.4112:
+        status = True
+    else:
+        status = False  
+    hourStatus.append(status)
+    statuses[weatherDay['time'].split(' ')[1]] = hourStatus
+print(statuses)
