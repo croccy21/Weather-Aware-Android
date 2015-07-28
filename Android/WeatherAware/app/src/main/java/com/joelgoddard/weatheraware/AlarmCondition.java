@@ -68,6 +68,6 @@ public class AlarmCondition {
     }
 
     public String getURL(){
-        return "not a url";
+        return "false";
     }
 }

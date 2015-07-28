@@ -11,6 +11,7 @@ public class AlarmData {
     protected int baseTime;//minutes
     protected int earliestTime;
     protected boolean[] repeats = new boolean[7];
+    protected boolean repeat;
     protected boolean enabled;
     protected Calendar day;
     protected ArrayList<AlarmCondition> conditions = new ArrayList<AlarmCondition>();
@@ -39,16 +40,18 @@ public class AlarmData {
         return earliestTime;
     }
 
-    public void setEarliestTime(int earliestTime) {
-        this.earliestTime = earliestTime;
-    }
-
     public boolean[] getRepeats() {
         return repeats;
     }
 
     public void setRepeats(boolean[] repeats) {
         this.repeats = repeats;
+        boolean repeat=false;
+        for (boolean b:repeats){
+            if (b= true){
+                repeat = true;
+            }
+        }
     }
 
     public boolean isEnabled() {
@@ -81,5 +84,16 @@ public class AlarmData {
 
     public void setDefaultAlarm(AlarmCondition defaultAlarm) {
         this.defaultAlarm = defaultAlarm;
+    }
+
+    public String getURL(){
+        String url = "www.server.co.uk/?";
+        for(AlarmCondition condition:conditions){
+            String next = condition.getURL();
+            if(!next.equals("false")) {
+                url += next;
+            }
+        }
+        return url;
     }
 }
