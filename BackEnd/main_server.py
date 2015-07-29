@@ -119,8 +119,8 @@ def main(conditions,conditionsList):
     return returnJSON
 
 
-#print("Content-Type: application/json;charset=utf-8")
-print("Content-Type: text/html;charset=utf-8")
+print("Content-Type: application/json;charset=utf-8")
+#print("Content-Type: text/html;charset=utf-8")
 print()
 
 
