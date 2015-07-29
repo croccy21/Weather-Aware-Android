@@ -118,7 +118,7 @@ def main(conditions,conditionsList):
         returnJSON = tools.jsonConstructor(returnJSONkey,returnJSONvalue,True)
     try:
         return returnJSON
-    return:
+    except:
         return ""
 
 
