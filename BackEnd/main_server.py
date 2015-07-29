@@ -1,9 +1,15 @@
 import parse
 import re
-data = "www.server.co.uk/?no=1&condid=1&start=1438074000&end=1438077600&no=2&condid=3&start=1438077600&end=1438081200"
+import json
+data = "www.server.co.uk/?no=1&condid=1&start=1438074000&end=1438077600&no=2&condid=3&start=1438077600&end=1438084800"
 pattern = "no=\d+&condid=\d+&start=\d+&end=\d+"
 conditions = re.findall(pattern, data, re.IGNORECASE)
 conditionsList = []
+# 1 = 0 = Wind
+# 2 = 1 = Snow
+# 3 = 2 = Rain
+# 4 = 3 = Visibility
+# 5 = 4 = Precipitation
 for i in conditions:
     tempDictionary = {}
     params = i.split("&")
@@ -35,6 +41,7 @@ for weatherDay in weather:
 ##        print(weatherDay['precipType'])
 ##    print()
     hourStatus = []
+    precipStatus = False
     status = False
     if float(weatherDay['precipIntensity']) != 0 and (weatherDay['precipType'] == 'rain' or weatherDay['precipType'] == 'hail'):
         if float(weatherDay['precipIntensity']) >= 10.16:
@@ -59,6 +66,7 @@ for weatherDay in weather:
                 status = False
     else:
         status = False
+    precipStatus = status
     hourStatus.append(status)
     #####
     status = False
@@ -85,6 +93,8 @@ for weatherDay in weather:
                 status = False
     else:
         status = False
+    if status == True and precipStatus == False:
+        precipStatus = True
     hourStatus.append(status)
     #####
     status = False
@@ -98,8 +108,24 @@ for weatherDay in weather:
     if float(weatherDay['windSpeed']) >= 13.4112:
         status = True
     else:
-        status = False  
+        status = False 
     hourStatus.append(status)
+    hourStatus.append(precipStatus)
     #statuses[weatherDay['time'].split(' ')[1]] = hourStatus
     statuses[weatherDay['unixtime']] = hourStatus
 print(statuses)
+returnJSONkey = []
+returnJSONvalue = []
+for condition in conditionsList:
+    time = int(condition['start'])
+    found = False
+    while found == False and time < int(condition['end']):
+        print(time)
+        if statuses[str(time)][int(condition['condid']) - 1]:
+            found = True
+        time += 3600
+    returnJSONkey.append(condition['number'])
+    returnJSONvalue.append(found)
+    print(found)
+    print()
+print(json.dumps(returnJSON.))
