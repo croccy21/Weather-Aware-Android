@@ -116,7 +116,10 @@ def main(conditions,conditionsList):
         returnJSONkey.append(condition['number'])
         returnJSONvalue.append(found)
         returnJSON = tools.jsonConstructor(returnJSONkey,returnJSONvalue,True)
-    return returnJSON
+    try:
+        return returnJSON
+    return:
+        return ""
 
 
 print("Content-Type: application/json;charset=utf-8")
