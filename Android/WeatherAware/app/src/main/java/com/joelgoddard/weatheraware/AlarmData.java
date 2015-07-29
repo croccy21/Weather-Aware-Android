@@ -104,7 +104,7 @@ public class AlarmData {
     }
 
     public String getURL(){
-        String url = "www.server.co.uk/?";
+        String url = "109.104.92.195/?";
         url+="count="+conditions.size();
         for(AlarmCondition condition:conditions){
             String next = condition.getURL();
