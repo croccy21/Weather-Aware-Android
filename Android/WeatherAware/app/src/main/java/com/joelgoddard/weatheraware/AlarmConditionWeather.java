@@ -71,8 +71,4 @@ public class AlarmConditionWeather extends AlarmCondition {
         return MessageFormat.format("no={0}&condid={1}&start={2}&end={3}",
                 conditionID, weatherID, start.getTimeInMillis()/1000, end.getTimeInMillis()/1000);
     }
-
-
-
-    
 }
