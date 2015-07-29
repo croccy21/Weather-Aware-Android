@@ -29,7 +29,7 @@ def parseWeather(year,month,day,hour,minute,second,latitude,longitude):
     return returnList
 
 def parseURL(data):
-    pattern = "no=\d+&condid=\d+&start=\d+&end=\d+"
+    pattern = "no\d+=\d+&condid\d+=\d+&start\d+=\d+&end\d+=\d+"
     conditions = re.findall(pattern, data, re.IGNORECASE)
     conditionsList = []
     # 1 = 0 = Wind

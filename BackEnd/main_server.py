@@ -1,5 +1,10 @@
+#!/usr/bin/env python3
+
+import cgitb, cgi
+cgitb.enable()
 import lib.parse as parse
 import lib.tools as tools
+import os
 
 def main(conditions,conditionsList):
     ##for condition in conditionsList:
@@ -113,6 +118,16 @@ def main(conditions,conditionsList):
         returnJSON = tools.jsonConstructor(returnJSONkey,returnJSONvalue,False)
     return returnJSON
 
-conditions, conditionsList = parse.parseURL("www.server.co.uk/?no=1&condid=1&start=1438178400&end=1438182000&no=2&condid=3&start=1438178400&end=1438185600")
+
+#print("Content-Type: application/json;charset=utf-8")
+print("Content-Type: text/html;charset=utf-8")
+print()
+
+
+form = cgi.FieldStorage()
+#print(os.environ["REQUEST_URI"])
+#conditions, conditionsList = parse.parseURL("www.server.co.uk/?count=2&no1=1&condid1=1&start1=1438178400&end1=1438182000&no2=2&condid2=3&start2=1438178400&end2=1438185600")
+conditions, conditionsList = parse.parseURL(os.environ["REQUEST_URI"])
 json = main(conditions, conditionsList)
 print(json)
+
