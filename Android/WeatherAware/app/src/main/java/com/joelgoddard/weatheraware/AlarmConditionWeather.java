@@ -68,7 +68,7 @@ public class AlarmConditionWeather extends AlarmCondition {
         start.add(Calendar.HOUR, startTime);
         Calendar end = (Calendar)parent.getDay().clone();
         end.add(Calendar.HOUR, endTime);
-        return MessageFormat.format("no={0}&condid={1}&start={2}&end={3}",
+        return MessageFormat.format("no{0}={0}&condid{0}={1}&start{0}={2}&end{0}={3}",
                 conditionID, weatherID, start.getTimeInMillis()/1000, end.getTimeInMillis()/1000);
     }
 }

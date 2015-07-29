@@ -6,7 +6,6 @@ import android.util.Log;
 import java.text.MessageFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 
 /**
  * Created by Joel Goddard on 28/07/2015.
@@ -14,14 +13,16 @@ import java.util.Date;
 public class AlarmData {
     protected String name;
     protected int baseTime;//minutes
+    protected int defaultTime;
     protected int earliestTime;
     protected boolean[] repeats = new boolean[7];
     protected boolean repeat;
     protected boolean enabled;
+    protected Calendar daySet;
     protected Calendar day;
     protected Calendar nextAlarm;
     protected ArrayList<AlarmCondition> conditions = new ArrayList<AlarmCondition>();
-    protected AlarmCondition defaultAlarm;
+    protected AlarmCondition defaultCondition;
 
     public AlarmData() {
     }
@@ -58,6 +59,7 @@ public class AlarmData {
                 repeat = true;
             }
         }
+        calculateNextAlarm();
     }
 
     public boolean isEnabled() {
@@ -72,32 +74,38 @@ public class AlarmData {
         return day;
     }
 
+    public Calendar getDaySet() {
+        return daySet;
+    }
+
     public void setDay(Calendar day) {
-        this.day = day;
+        this.daySet = day;
     }
 
     public ArrayList<AlarmCondition> getConditions() {
         return conditions;
     }
 
-    public void setConditions(ArrayList<AlarmCondition> conditions) {
-        this.conditions = conditions;
-    }
-
     public void addCondition(AlarmCondition condition){
         conditions.add(condition);
     }
 
-    public AlarmCondition getDefaultAlarm() {
-        return defaultAlarm;
+    public AlarmCondition getDefaultCondition() {
+        return defaultCondition;
     }
 
-    public void setDefaultAlarm(AlarmCondition defaultAlarm) {
-        this.defaultAlarm = defaultAlarm;
+    public void setDefaultCondition(AlarmCondition defaultCondition) {
+        this.defaultCondition = defaultCondition;
+        defaultTime = baseTime + defaultCondition.deltaTime;
+    }
+
+    public Calendar getNextAlarm() {
+        return nextAlarm;
     }
 
     public String getURL(){
         String url = "www.server.co.uk/?";
+        url+="count="+conditions.size();
         for(AlarmCondition condition:conditions){
             String next = condition.getURL();
             if(!next.equals("false")) {
@@ -111,13 +119,17 @@ public class AlarmData {
         Calendar today = Calendar.getInstance();
         today.set(Calendar.SECOND, 0);
         today.set(Calendar.MILLISECOND, 0);
-        Calendar alarmTime = (Calendar)today.clone();
-        alarmTime.set(Calendar.HOUR_OF_DAY, 0);
-        alarmTime.set(Calendar.MINUTE, earliestTime);
-        if(alarmTime.before(today)){
-            alarmTime.add(Calendar.HOUR, 24);
-        }
+        Calendar alarmTime;
+
         if(repeat) {
+            alarmTime = (Calendar)today.clone();
+            alarmTime.set(Calendar.HOUR_OF_DAY, 0);
+            alarmTime.set(Calendar.MINUTE, earliestTime);
+
+            if(alarmTime.before(today)){
+                alarmTime.add(Calendar.HOUR, 24);
+            }
+
             for(boolean b:repeats){
                 if (repeats[alarmTime.get(Calendar.DAY_OF_WEEK)]){
                     break;
@@ -127,14 +139,27 @@ public class AlarmData {
                 }
                 Log.e("AlarmData" ,"No Repeat Date Selected");
             }
+
         }
-        nextAlarm = (Calendar)alarmTime.clone();
-        alarmTime.set(Calendar.MINUTE, 0);
-        alarmTime.set(Calendar.HOUR, 0);
-        day = (Calendar)alarmTime.clone();
-        DateFormat date = DateFormat.getDateInstance();
-        DateFormat time = DateFormat.getTimeInstance();
-        Log.d("Debug", MessageFormat.format("Alarm set to {} on {}",
-                time.format(nextAlarm.getTime()), date.format(nextAlarm.getTime())));
+        else{
+            alarmTime = (Calendar)daySet.clone();
+            alarmTime.set(Calendar.HOUR_OF_DAY, 0);
+            alarmTime.set(Calendar.MINUTE, earliestTime);
+        }
+        DateFormat dateAndTime = DateFormat.getDateTimeInstance();
+        Log.d("Debug", MessageFormat.format("{}) Alarm set for :{}",dateAndTime.format(today.getTime()), dateAndTime.format(alarmTime.getTime())));
+        if (alarmTime.after(today)) {
+            nextAlarm = (Calendar) alarmTime.clone();
+            alarmTime.set(Calendar.MINUTE, 0);
+            alarmTime.set(Calendar.HOUR, 0);
+            day = (Calendar) alarmTime.clone();
+            DateFormat date = DateFormat.getDateInstance();
+            DateFormat time = DateFormat.getTimeInstance();
+            Log.d("Debug", MessageFormat.format("Alarm set to {} on {}",
+                    time.format(nextAlarm.getTime()), date.format(nextAlarm.getTime())));
+        }
+        else{
+            Log.e("AlarmData", "Cannot set alarm for past");
+        }
     }
 }
