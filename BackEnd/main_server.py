@@ -115,7 +115,7 @@ def main(conditions,conditionsList):
             time += 3600
         returnJSONkey.append(condition['number'])
         returnJSONvalue.append(found)
-        returnJSON = tools.jsonConstructor(returnJSONkey,returnJSONvalue,False)
+        returnJSON = tools.jsonConstructor(returnJSONkey,returnJSONvalue,True)
     return returnJSON
 
 
