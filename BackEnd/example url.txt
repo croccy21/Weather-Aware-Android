@@ -1,0 +1,1 @@
+http://109.104.92.195/Weather-Aware/Server/main_server.py?count=2&no1=1&condid1=1&start1=1438178400&end1=1438182000&no2=2&condid2=3&start2=1438178400&end2=1438185600
