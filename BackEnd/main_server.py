@@ -38,22 +38,22 @@ def main(conditions,conditionsList):
         testOffset = 0
         if float(weatherDay['precipIntensity']) != 0 and (weatherDay['precipType'] == 'rain' or weatherDay['precipType'] == 'hail'):
             if float(weatherDay['precipIntensity']) >= 10.16:
-                if float(weatherDay['precipProbability']) >= 40 - testOffset:
+                if float(weatherDay['precipProbability']) >= 40/100 - testOffset:
                     status = True
                 else:
                     status = False
             elif float(weatherDay['precipIntensity']) >= 2.54:
-                if float(weatherDay['precipProbability']) >= 50 - testOffset:
+                if float(weatherDay['precipProbability']) >= 50/100 - testOffset:
                     status = True
                 else:
                     status = False
             elif float(weatherDay['precipIntensity']) >= 0.4318:
-                if float(weatherDay['precipProbability']) >= 60 - testOffset:
+                if float(weatherDay['precipProbability']) >= 60/100 - testOffset:
                     status = True
                 else:
                     status = False
             elif float(weatherDay['precipIntensity']) >= 0.0508:
-                if float(weatherDay['precipProbability']) >= 70 - testOffset:
+                if float(weatherDay['precipProbability']) >= 70/100 - testOffset:
                     status = True
                 else:
                     status = False
@@ -66,22 +66,22 @@ def main(conditions,conditionsList):
         testOffset = 0
         if float(weatherDay['precipIntensity']) != 0 and (weatherDay['precipType'] == 'snow' or weatherDay['precipType'] == 'sleet'):
             if float(weatherDay['precipIntensity']) >= 10.16:
-                if float(weatherDay['precipProbability']) >= 30 - testOffset:
+                if float(weatherDay['precipProbability']) >= 30/100 - testOffset:
                     status = True
                 else:
                     status = False
             elif float(weatherDay['precipIntensity']) >= 2.54:
-                if float(weatherDay['precipProbability']) >= 40 - testOffset:
+                if float(weatherDay['precipProbability']) >= 40/100 - testOffset:
                     status = True
                 else:
                     status = False
             elif float(weatherDay['precipIntensity']) >= 0.4318:
-                if float(weatherDay['precipProbability']) >= 50 - testOffset:
+                if float(weatherDay['precipProbability']) >= 50/100 - testOffset:
                     status = True
                 else:
                     status = False
             elif float(weatherDay['precipIntensity']) >= 0.0508:
-                if float(weatherDay['precipProbability']) >= 60 - testOffset:
+                if float(weatherDay['precipProbability']) >= 60/100 - testOffset:
                     status = True
                 else:
                     status = False
@@ -102,7 +102,7 @@ def main(conditions,conditionsList):
         if float(weatherDay['windSpeed']) >= 13.4112:
             status = True
         else:
-            status = False 
+            status = False
         hourStatus.append(status)
         hourStatus.append(precipStatus)
         #statuses[weatherDay['time'].split(' ')[1]] = hourStatus
