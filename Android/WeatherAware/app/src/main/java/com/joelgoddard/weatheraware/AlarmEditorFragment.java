@@ -4,9 +4,13 @@ import android.app.Activity;
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.provider.MediaStore;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.TextView;
 
 
 /**
@@ -17,7 +21,7 @@ import android.view.ViewGroup;
  * Use the {@link AlarmEditorFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AlarmEditorFragment extends Fragment {
+public class AlarmEditorFragment extends Fragment implements View.OnClickListener{
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -89,6 +93,32 @@ public class AlarmEditorFragment extends Fragment {
     public void onDetach() {
         super.onDetach();
         mListener = null;
+    }
+
+    @Override
+    public void onClick(View v) {
+        Log.d("Test", String.valueOf(v.getId()));
+        switch (v.getId()){
+            case R.id.alarm_name:
+                Log.d("Test", "Button Pressed");
+                switchName(v);
+                break;
+        }
+    }
+
+    public void switchName(View v){
+        TextView name = (TextView) v.findViewById(R.id.alarm_name);
+        EditText nameEdit = (EditText) v.findViewById(R.id.alarm_name_edit);
+        if(name.getVisibility()==View.VISIBLE){
+            name.setVisibility(View.GONE);
+            nameEdit.setText(name.getText());
+            nameEdit.setVisibility(View.VISIBLE);
+        }
+        else{
+            nameEdit.setVisibility(View.GONE);
+            name.setText(nameEdit.getText());
+            name.setVisibility(View.VISIBLE);
+        }
     }
 
     /**
