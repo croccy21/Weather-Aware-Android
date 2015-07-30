@@ -6,7 +6,7 @@ import datetime
 
 def parseWeather(year,month,day,hour,minute,second,latitude,longitude):
     now = datetime.datetime.now()
-    #url = 'https://api.forecast.io/forecast/94f336d8e9a37828d0cf3639f474c531/latitude,longitude,%s-%s-%sT%s:%s:%s+01:00?units=si&exclude=currently,minutely,daily,alerts,flags' % (str(year),str(month).zfill(2),str(day).zfill(2),str(hour).zfill(2),str(minute).zfill(2),str(second).zfill(2))
+    #url = 'https://api.forecast.io/forecast/94f336d8e9a37828d0cf3639f474c531/%s,%s,%s-%s-%sT%s:%s:%s+01:00?units=si&exclude=currently,minutely,daily,alerts,flags' % (str(latitude),str(longitude),str(year),str(month).zfill(2),str(day).zfill(2),str(hour).zfill(2),str(minute).zfill(2),str(second).zfill(2))
     #response = urllib.request.urlopen(url)
     #str_response = response.readall().decode('utf-8')
     file = open("sample data.txt")
@@ -29,7 +29,7 @@ def parseWeather(year,month,day,hour,minute,second,latitude,longitude):
     return returnList
 
 def parseURL(data):
-    pattern = "no\d+=\d+&condid\d+=\d+&start\d+=\d+&end\d+=\d+"
+    pattern = "no=\d+&condid=\d+&start=\d+&end=\d+"
     conditions = re.findall(pattern, data, re.IGNORECASE)
     conditionsList = []
     # 1 = 0 = Wind
