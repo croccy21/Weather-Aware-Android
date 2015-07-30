@@ -130,6 +130,9 @@
             android:layout_height="1dp"
             android:background="#505050"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"></LinearLayout>
         <TextView
             android:id="@+id/date_selctor"
             android:layout_width="wrap_content"
@@ -137,7 +140,29 @@
             android:text="11/12/2014"
             android:textSize="30sp"
             android:layout_gravity="center_horizontal"
-            android:padding="8dp"/>
+            android:padding="8dp"
+            android:onClick="datePicker"/>
+
+        <LinearLayout
+            android:id="@+id/date_holder"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:orientation="vertical"
+            >
+            <DatePicker
+                android:id="@+id/date_picker"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Done"
+                android:onClick="datePicker"
+                />
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/day_selector"
@@ -145,7 +170,8 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:paddingTop="8dp"
-            android:paddingBottom="8dp">
+            android:paddingBottom="8dp"
+            android:visibility="gone">
             <CheckBox
                 android:id="@+id/day_selector_monday"
                 android:layout_width="0dp"

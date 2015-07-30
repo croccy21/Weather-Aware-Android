@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -85,5 +86,21 @@ public class MainActivity extends Activity {
                     + ":" + String.format("%02d", timePicker.getCurrentMinute()));
             clock.setVisibility(View.VISIBLE);
         }
+    }
+
+    public void repeatCheckClicked(View view) {
+        TextView dateSelector = (TextView) findViewById(R.id.date_selctor);
+        LinearLayout daySelector = (LinearLayout) findViewById(R.id.day_selector);
+        CheckBox repeat = (CheckBox) view;
+
+        if (repeat.isChecked()){
+            dateSelector.setVisibility(View.GONE);
+            daySelector.setVisibility(View.VISIBLE);
+        }
+        else{
+            dateSelector.setVisibility(View.VISIBLE);
+            daySelector.setVisibility(View.GONE);
+        }
+
     }
 }
