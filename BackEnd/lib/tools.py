@@ -1,3 +1,8 @@
+from datetime import datetime
+
+def unixToDate(unix):
+    return datetime.fromtimestamp(float(unix))
+
 def jsonConstructor(keys,values,readable = False):
     #"1": true,
     json = "{ "

@@ -7,13 +7,18 @@ import lib.tools as tools
 import os
 
 def main(conditions,conditionsList):
-    ##for condition in conditionsList:
-    ##    print(condition['number'])
-    ##    print(condition['condid'])
-    ##    print(condition['start'])
-    ##    print(condition['end'])
-    ##    print()
-    weather = parse.parseWeather("2015","07","28","12","06","00","37.8267","-122.423")
+    lowestCondition = None
+    for condition in conditionsList:
+##        print(condition['number'])
+##        print(condition['condid'])
+        if lowestCondition == None or condition['start'] < lowestCondition:
+            lowestCondition = condition['start']
+##        print(condition['start'])
+##        print(condition['end'])
+##        print()
+    datestamp = tools.unixToDate(float(lowestCondition))
+    #print(datestamp)
+    weather = parse.parseWeather(datestamp.year, datestamp.month, datestamp.day, datestamp.hour, "37.8267", "-122.423")
     statuses = {}
     for weatherDay in weather:
         #for weatherType in weatherDay:

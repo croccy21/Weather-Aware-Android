@@ -1,0 +1,13 @@
+http://109.104.92.195/Weather-Aware/Server/main_server.py?
+
+	count=2&            #no. of conditions
+
+	no=1&               #unique identifier of condition
+	condid=1&           #type of condition
+	start=1438178400&   #start time
+	end=1438182000&     #end time
+
+	no=2&               #unique identifier of condition
+	condid=3&           #id of condition
+	start=1438178400&   #start time
+	end=1438185600      #end time
