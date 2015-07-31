@@ -6,32 +6,17 @@ import lib.parse as parse
 import lib.tools as tools
 import os
 
-def main(conditions,conditionsList):
+def main(conditionsList, alarmDataDict):
+    """Check if the conditions are met in the data provided and return a JSON construction of Trues and Falses alongside their unique condition ID"""
+    # Find the time condition which has the earliest start hour
     lowestCondition = None
     for condition in conditionsList:
-##        print(condition['number'])
-##        print(condition['condid'])
         if lowestCondition == None or condition['start'] < lowestCondition:
             lowestCondition = condition['start']
-##        print(condition['start'])
-##        print(condition['end'])
-##        print()
     datestamp = tools.unixToDate(float(lowestCondition))
-    #print(datestamp)
-    weather = parse.parseWeather(datestamp.year, datestamp.month, datestamp.day, datestamp.hour, "37.8267", "-122.423")
+    weather = parse.parseWeather(datestamp.year, datestamp.month, datestamp.day, datestamp.hour, str(alarmDataDict['lat']), str(alarmDataDict['long']))
     statuses = {}
     for weatherDay in weather:
-        #for weatherType in weatherDay:
-            #print(weatherType + ': ' + str(weatherDay[weatherType]))
-    ##    print(weatherDay['time'])
-    ##    print(weatherDay['unixtime'])
-    ##    print(weatherDay['precipProbability'] + '%')
-    ##    print(weatherDay['visibility'] + 'km')
-    ##    print(weatherDay['windSpeed'] + ' m/s')
-    ##    print(weatherDay['precipIntensity'] + ' inches')
-    ##    if float(weatherDay['precipIntensity']) != 0:
-    ##        print(weatherDay['precipType'])
-    ##    print()
         hourStatus = []
         precipStatus = False
         status = False
@@ -135,7 +120,9 @@ print()
 form = cgi.FieldStorage()
 #print(os.environ["REQUEST_URI"])
 #conditions, conditionsList = parse.parseURL("www.server.co.uk/?count=2&no1=1&condid1=1&start1=1438178400&end1=1438182000&no2=2&condid2=3&start2=1438178400&end2=1438185600")
-conditions, conditionsList = parse.parseURL(os.environ["REQUEST_URI"])
-json = main(conditions, conditionsList)
-print(json)
-
+conditionsList, alarmDataDict = parse.parseURL(os.environ["REQUEST_URI"])
+if conditionsList == None and alarmDataDict == None:
+    print()
+else:
+    json = main(conditionsList, alarmDataDict)
+    print(json)
