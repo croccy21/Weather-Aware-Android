@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -89,7 +90,7 @@ public class MainActivity extends Activity {
     }
 
     public void repeatCheckClicked(View view) {
-        TextView dateSelector = (TextView) findViewById(R.id.date_selctor);
+        DatePicker dateSelector = (DatePicker) findViewById(R.id.date_picker);
         LinearLayout daySelector = (LinearLayout) findViewById(R.id.day_selector);
         CheckBox repeat = (CheckBox) view;
 
