@@ -9,15 +9,15 @@ def parseWeather(year,month,day,hour,latitude,longitude):
     
     ########################################################################
     #
-##    url = 'https://api.forecast.io/forecast/94f336d8e9a37828d0cf3639f474c531/%s,%s,%s-%s-%sT%s:00:00+01:00?units=si&exclude=currently,minutely,daily,alerts,flags' % (str(latitude),str(longitude),str(year),str(month).zfill(2),str(day).zfill(2),str(hour).zfill(2))
-##    response = urllib.request.urlopen(url)
-##    str_response = response.readall().decode('utf-8')
+    url = 'https://api.forecast.io/forecast/94f336d8e9a37828d0cf3639f474c531/%s,%s,%s-%s-%sT%s:00:00+01:00?units=si&exclude=currently,minutely,daily,alerts,flags' % (str(latitude),str(longitude),str(year),str(month).zfill(2),str(day).zfill(2),str(hour).zfill(2))
+    response = urllib.request.urlopen(url)
+    str_response = response.readall().decode('utf-8')
     #
     ########################################################################
     #
-    file = open("sample data.txt")
-    str_response = file.read()
-    file.close()
+##    file = open("sample data.txt")
+##    str_response = file.read()
+##    file.close()
     #
     ########################################################################
     
